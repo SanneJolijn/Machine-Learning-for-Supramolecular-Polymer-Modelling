@@ -15,8 +15,6 @@ The dataset used in this project consists of 192 data points, where turbidity me
 ## Installation
 Follow the installation commands below.
 
-$ git clone https://github.com/SanneJolijn/Machine-Learning-for-Supramolecular-Polymer-Modelling.git
-
-$ cd Machine-Learning-for-Supramolecular-Polymer-Modelling
-
+$ git clone https://github.com/SanneJolijn/Machine-Learning-for-Supramolecular-Polymer-Modelling.git <br />
+$ cd Machine-Learning-for-Supramolecular-Polymer-Modelling <br />
 $ npm install
