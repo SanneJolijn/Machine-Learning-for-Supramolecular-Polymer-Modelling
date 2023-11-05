@@ -18,3 +18,37 @@ Follow the installation commands below.
 $ git clone https://github.com/SanneJolijn/Machine-Learning-for-Supramolecular-Polymer-Modelling.git <br />
 $ cd Machine-Learning-for-Supramolecular-Polymer-Modelling <br />
 $ npm install
+
+## Usage
+To use this project, follow these steps:
+
+## Install Dependencies:
+
+Make sure you have the necessary dependencies installed. If you haven't already, you can install them with:
+
+Copy code
+npm install  # or any other package manager of your choice
+
+## Data Preparation:
+
+Before running the code, you need to ensure that you have the dataset in the correct format. Make sure you have the dataset file (e.g., dataset.csv) in the project directory.
+
+## Run the Model:
+
+You can run the model using the provided scripts. For example, to train the XGBoost regression model, use:
+
+python train_xgboost_model.py
+For other regression models (linear regression or SVR), you can run the corresponding scripts.
+
+## Evaluate the Model:
+
+After training, you can evaluate the model's performance using the evaluation metrics mentioned in the "Experimental Setup" section. Use the provided evaluation script:
+
+python evaluate_model.py
+
+## Generate Predictions:
+
+If you want to make predictions using your trained model, use the prediction script:
+
+python predict.py
+You can provide new data points or modify the input as required.
