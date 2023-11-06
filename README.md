@@ -22,15 +22,10 @@ $ npm install
 ## Usage
 To use this project, follow these steps:
 
-## Install Dependencies:
-
-Make sure you have the necessary dependencies installed. If you haven't already, you can install them with:
-
-Copy code
-npm install  # or any other package manager of your choice
+### Install Packages:
+Make sure you have the necessary packages installed. If you haven't already, you can install them with:
 
 ## Data Preparation:
-
 Before running the code, you need to ensure that you have the dataset in the correct format. Make sure you have the dataset file (e.g., dataset.csv) in the project directory.
 
 ## Run the Model:
