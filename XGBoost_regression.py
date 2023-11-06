@@ -16,16 +16,15 @@ from sklearn.metrics import (
 
 import pandas as pd
 import math
+import csv
 
 import numpy as np
 from numpy import (mean,
                    std)
 
-import csv
-
 from utils import import_xlsx_data
 
-#%%
+# Define a function for XGBoost regression with hyperparameter tuning
 def XGBoost_regression(random_state, n_outer, n_inner, X, y, parameter_grid, iterations):
     # Configure the cross-validation procedure
     outer_cv = KFold(n_splits=n_outer, shuffle=True, random_state=random_state)
@@ -41,28 +40,28 @@ def XGBoost_regression(random_state, n_outer, n_inner, X, y, parameter_grid, ite
 
     for train_ix, test_ix in outer_cv.split(X):
         metrics = []
-        # split data
+        # Split data
         X_train, X_test = X.loc[train_ix], X.loc[test_ix]
         y_train, y_test = y.loc[train_ix], y.loc[test_ix]
 
-        # define search
+        # Define random search
         random_search = RandomizedSearchCV(estimator=estimator, 
                                             param_distributions=parameter_grid, 
                                             n_iter=iterations, cv=inner_cv, 
                                             scoring='r2',
                                             n_jobs=-1, random_state=random_state)
             
-        # execute search
+        # Execute random search
         result = random_search.fit(X_train, y_train)
             
         parameter_results = pd.DataFrame.from_dict(result.cv_results_, orient='columns')
             
         df_randomsearch = pd.concat([df_randomsearch, parameter_results])
 
-        # get the best performing model fit on the whole training set
+        # Get the best performing model fit on the whole training set
         best_model = result.best_estimator_
 
-        # evaluate model on the hold out dataset
+        # Evaluate model on the hold out dataset
         y_predicted = best_model.predict(X_test)
 
         # Evaluate the regression model
@@ -83,8 +82,7 @@ def XGBoost_regression(random_state, n_outer, n_inner, X, y, parameter_grid, ite
 
     return df_randomsearch, df_metrics
 
-#%%
-#Determine all variables
+# Set random seed and parameters
 np.random.seed(12)
 random_state = 12
 
@@ -102,28 +100,21 @@ parameter_grid = {
 
 iterations = 2000
 
-#%%
-#Import our data
+#Import data
 data = import_xlsx_data('upy AA input.xlsx')
 df = data.drop(data.columns[0], axis=1)
 X, y = df.drop('Turbidity', axis=1), df[['Turbidity']]
 
-#%%
 #Perform XGBoost hyperparameter tuning
 df_results, df_performance = XGBoost_regression(random_state, n_outer, n_inner, X, y, parameter_grid, iterations)
 df_results.to_csv("parameters.csv") 
 df_performance.to_csv("modelperformance.csv")
 
-# %%
 #Ablation studies
 data2 = import_xlsx_data('upy AA input 3.xlsx')
 df = data2.drop(data2.columns[0], axis=1)
 X2, y2 = df.drop('Turbidity', axis=1), df[['Turbidity']]
 
-#%%
 df_results2, df_performance2 = XGBoost_regression(random_state, n_outer, n_inner, X2, y2, parameter_grid, iterations)
 df_results2.to_csv("parameters ablation.csv") 
 df_performance2.to_csv("modelperformance ablation.csv")
-
-
-# %%
