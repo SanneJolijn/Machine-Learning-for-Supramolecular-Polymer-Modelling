@@ -6,9 +6,7 @@ This repository contains code for building a machine learning model to predict p
 - Data overview
 - Installation
 - Usage
-- Contributing
-- License
-
+  
 ## Data Overview
 The dataset used in this project consists of 192 data points, where turbidity measurements of SMPs are taken along with information about the monomer units used and their concentrations. It also includes information about the concentration of the 8 selected compounds which were used to create the supramolecular polymer. Notably, the concentrations vary between 1 mM, 0.1 mM, and 0.01 mM, with volumes remaining constant. This dataset was also modified to include values of zero for compounds not present in each supramolecular polymer. This results in a dataset with 10 columns, including sample names, turbidity measurements, and concentration values for each compound.
 
