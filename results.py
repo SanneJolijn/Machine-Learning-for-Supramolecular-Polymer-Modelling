@@ -1,4 +1,4 @@
-#%%
+# Import necessary packages
 import pandas as pd
 import seaborn as sns
 import plotly.express as px
@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math 
 
-#%%
+# Define coefficients and feature importance data for various experiments
 coeficients_linear_regression = [[0.017, 0.034, 0.029, 0.032, 0.793, 0.013, 0.018, 0.228, 0.022], 
             [0.023, 0.033, 0.009, 0.031, 0.785, 0.009, 0.014, 0.216, 0.022],
             [0.020, 0.029, 0.019, 0.032, 0.786, 0.011, 0.017, 0.221, 0.023],
@@ -73,7 +73,6 @@ coeficients_svr_ablation_studies = [[0.10000427, 0, 0.0320141, 0, 0, -0.00032014
                      [0.10000427, 0, 0.0320141, 0, 0, -0.00032014, 0.2049795, -0.00172965],
                      [0.1000096, 0,          0.032,       0,          0,         -0.00091991,  0.1919908,  -0.001]]
 
-#%%
 #Plot results of feature importance and coefficients of regression
 features = [coeficients_linear_regression, 
             coeficients_svr_ablation_studies, 
@@ -103,38 +102,34 @@ for i in range(len(features)):
     plt.ylabel('number outer loop')
     plt.show()
 
-# %%
-#Clean results data frame
+# Clean and process results data frames
 data = pd.read_csv("parameters.csv")
 df = data.dropna()
 
-#%%
 df_SVR = pd.read_csv("regression SVR results.csv")
 df_SVR2 = df_SVR.dropna()
 
-#%%
-#Get best model and its parameter values
+# Get the best model and its parameter values for XGBoost
 df_rank = df[['mean_test_score']]
 index_maxvalue = df_rank.idxmax(axis=0)
 print(index_maxvalue)
 result = df.iloc[[8272]]
 result.to_csv("best model.csv") 
 
-
-#%%
+# Get the best model and its parameter values for SVR
 df_rank2 = df_SVR2[['mean_test_score']]
 index_maxvalue2 = df_rank2.idxmax(axis=0)
 print(index_maxvalue2)
 result2 = df_SVR2.iloc[[15]]
 result2.to_csv("best model SVR.csv") 
 
-#%%
+# Define parameter lists for boxplots and heatmaps
 params = ['param_subsample', 'param_colsample_by_tree', 'param_n_estimators', 'param_learning_rate', 'param_max_depth', 'param_reg_alpha']
 params2 = ['param_gamma', 'param_C']
 
-#%%
-#Boxplots
+# Create boxplots for hyperparameters
 def boxplots_results(params, df):
+    # Loop through hyperparameters and create boxplots
     for parameter in params:
         unique_vals = df[parameter].unique()
         unique_vals.sort()
@@ -155,9 +150,9 @@ def boxplots_results(params, df):
 boxplots_results(params, df)
 boxplots_results(params2, df_SVR2)
 
-#%%
-#Heatmaps
+# Create heatmaps for hyperparameters
 def heatmaps_results(params, df):
+    # Loop through hyperparameters and create heatmaps
     for parameter in params:
         unique_vals = df[parameter].unique()
         unique_vals.sort()
