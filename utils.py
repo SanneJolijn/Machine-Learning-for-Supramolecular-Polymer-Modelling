@@ -1,4 +1,4 @@
-#%%
+# Import necessary packages
 import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.express as px
@@ -7,31 +7,29 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-#%%
+# Define functions to import data from CSV and XLSX files
 def import_csv_data(filename):
+    # Read data from a CSV file and remove columns with NaN values
     df = pd.read_csv(filename)
     df2 = df.dropna(axis=1)
 
     return df2
 
 def import_xlsx_data(filename):
+    # Read data from an XLSX file and remove columns with NaN values
     df = pd.read_excel(filename)
     df2 = df.dropna(axis=1)
     
     return df2
 
+# Define a function to divide data into categorical and numerical columns
 def divide_data(dataframe):
     cat_cols = dataframe.select_dtypes(include=['object']).columns
     num_cols = dataframe.select_dtypes(include=np.number).columns.tolist()
 
     return cat_cols, num_cols
 
-#%%
-#Drop similar rows?
-#Data scaling?
-#Outlier removal?
-
-#%%
+# Define a function to create a bar plot and calculate skewness
 def barplot_and_skew(columns, dataframe):
     col = columns[0]
     print(col)
@@ -46,21 +44,21 @@ def barplot_and_skew(columns, dataframe):
     
     return skew, fig
 
-# %%
+# Define a function to create a heatmap of correlation
 def heatmap(dataframe):
     fig = plt.figure(figsize=(12, 7))
     sns.heatmap(dataframe.corr(), annot = True, vmin = -1, vmax = 1)
     
     return fig
 
-#%%
+# Define a function to split and scale data
 def split_and_scale(dataframe, category_name):
     X, y = dataframe.drop(category_name, axis=1), dataframe[[category_name]]
     X = StandardScaler().fit_transform(X)
 
     return X, y
 
-#%%
+# Define a function to perform PCA (Principal Component Analysis) testing
 def pca_test(X):
     pca_test = PCA()
     pca_test.fit(X)
@@ -80,14 +78,14 @@ def pca_test(X):
     
     return fig
 
-#%%
+# Define a function to perform PCA
 def pca(X, n_components):
     pca = PCA(n_components=6)
     pca_turbidity = pca.fit_transform(X)
     
     return pca, pca_turbidity
 
-#%%
+# Define a function to create a loading plot for PCA
 def loading_plot(dataframe, pca):
     variable_names = dataframe.columns
     loadings = pca.components_
@@ -122,7 +120,7 @@ def loading_plot(dataframe, pca):
     
     return fig
 
-#%%
+# Define a function to create a score plot for PCA
 def score_plot(pca):
     fig = px.scatter(pca, 
                  x=0, y=1, 
@@ -131,7 +129,7 @@ def score_plot(pca):
 
     return fig
 
-#%%
+# Define a function to create a grouped score plot for PCA
 def grouped_score_plot(pca, dataframe, color_map, sort_by, legend):
     scores = pca[:, :2]
     fig = plt.figure(figsize=(20, 10))
@@ -152,7 +150,7 @@ def grouped_score_plot(pca, dataframe, color_map, sort_by, legend):
     
     return fig
 
-#%%
+# Define a function to visualize regression results
 def vis_regression(X_train, X_test, y_train, y_pred):
     fig = plt.figure(figsize=(12,7))
     plt.scatter(X_train, y_train, color='g')
