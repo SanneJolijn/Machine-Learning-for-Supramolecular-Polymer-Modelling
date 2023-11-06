@@ -31,7 +31,7 @@ Before running the code, you need to ensure that you have the dataset in the cor
 **Run the Model:**
 You can run the model using the provided scripts. For example, to train the XGBoost regression model, use:
 
-python train_xgboost_model.py
-For other regression models (linear regression or SVR), you can run the corresponding scripts.
+python train_xgboost_model.py<br />
+For other regression models (linear regression or SVR), you can run the corresponding scripts.<br />
 
 
